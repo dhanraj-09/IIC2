@@ -1,0 +1,317 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.profile-page-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.profile-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    width: 100%;
+    max-width: 850px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    overflow: hidden;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 25px;
+}
+
+.profile-image-wrapper {
+    flex-shrink: 0;
+    width: 150px;
+    height: 150px;
+    border: 5px solid #4a90e2;
+    border-radius: 50%;
+    padding: 3px;
+    overflow: hidden;
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.profile-info {
+    flex-grow: 1;
+}
+
+.profile-name {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 0 0 5px 0;
+}
+
+.profile-title, .profile-department, .profile-university, .profile-reg-number, .profile-academic-duration {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #777;
+    margin: 0 0 3px 0;
+}
+
+.profile-actions-and-about-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.profile-action-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.update-profile-button {
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    background-color: #4a90e2;
+    color: white;
+}
+
+.update-profile-button:hover {
+    background-color: #357bd8;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon-link {
+    color: #555;
+}
+
+.social-icon-link svg {
+    width: 28px;
+    height: 28px;
+}
+
+.social-icon-link:hover {
+    color: #4a90e2;
+}
+
+.profile-about-section, .profile-academic-section, .profile-projects-section {
+    padding: 0;
+}
+
+.profile-about-section p {
+    margin: 0;
+}
+
+.about-content-scroll {
+    max-height: 150px;
+    overflow-y: auto;
+    padding-right: 15px;
+}
+
+.about-content-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.about-content-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.about-content-scroll::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.about-content-scroll::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.profile-academic-section {
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 20px;
+}
+
+.gpa-and-arears-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.gpa-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.gpa-card, .arears-container {
+    background-color: #f1f3f5;
+    padding: 20px 30px;
+    border-radius: 10px;
+    text-align: center;
+    flex: 1;
+    min-width: 150px;
+}
+
+.gpa-card {
+    text-align: center;
+}
+
+.gpa-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.gpa-label {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0;
+}
+
+.arears-container {
+    text-align: left;
+}
+
+.arears-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+}
+
+.arears-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.arears-item {
+    font-size: 0.9rem;
+    color: #495057;
+    margin-bottom: 5px;
+}
+
+.profile-projects-section {
+    padding: 0;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.project-card {
+    background-color: #f1f3f5;
+    padding: 20px;
+    border-left: 4px solid #4a90e2;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.project-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.project-link svg {
+    width: 18px;
+    height: 18px;
+}
+
+.project-link:hover {
+    text-decoration: underline;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #4a90e2;
+    display: inline-block;
+}
+
+@media (max-width: 768px) {
+    .profile-card {
+        padding: 20px;
+    }
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding-bottom: 20px;
+    }
+    .profile-image-wrapper {
+        width: 120px;
+        height: 120px;
+    }
+    .profile-name {
+        font-size: 2rem;
+    }
+    .profile-title, .profile-department, .profile-university, .profile-reg-number, .profile-academic-duration {
+        font-size: 0.9rem;
+    }
+    .profile-actions-and-about-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    .update-profile-button {
+        width: 100%;
+    }
+    .social-links {
+        margin-top: 15px;
+    }
+    .gpa-and-arears-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .gpa-card, .arears-container {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+}
