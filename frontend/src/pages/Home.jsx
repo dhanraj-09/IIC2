@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../css/HomePage.css';
 
-// Sample data for the logged-in user
+
 const userData = {
     name: "Aditya Singh",
     role: "Student",
