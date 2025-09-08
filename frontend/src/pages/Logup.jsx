@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {sendData} from "../api/api.js";
 import "../css/logup.css"
-// --- API Function ---
-
-// --- Styles ---
 
 
 
-// --- Constants for Dropdown Options ---
+
 const userRoles = ['Student', 'Faculty', 'Alumni'];
 const genders = ['Male', 'Female', 'Other'];
 const degrees = ['BTech', 'BBA', 'BCom', 'MTech', 'MBA', 'MCom'];
@@ -91,7 +88,6 @@ const ComboBoxInput = ({ name, value, onChange, onBlur, options, placeholder, er
 };
 
 
-// --- Main SignUpForm Component ---
 const Logup = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState(initialFormState);
@@ -167,7 +163,7 @@ const Logup = () => {
                 setCurrentStep(1);
             } catch (error) {
                 console.error("Submission failed:", error);
-                alert("Registration failed. Please check the console and try again.");
+                alert(`Registration failed. ${error.message}`);
             }
         }
     };
@@ -216,7 +212,6 @@ const Logup = () => {
 
                 <div className="form-steps-wrapper">
                     <div className={`form-steps-slider step-${currentStep}`}>
-                        {/* --- Step 1 --- */}
                         <div className="form-step">
                             <div className="form-group">
                                 <label>I am a</label>
@@ -234,7 +229,7 @@ const Logup = () => {
                             </div>
                         </div>
 
-                        {/* --- Step 2 --- */}
+
                         <div className="form-step step-two-content">
                             {renderStep2Fields()}
                         </div>

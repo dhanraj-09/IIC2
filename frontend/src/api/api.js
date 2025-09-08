@@ -15,6 +15,6 @@ export async function sendData(data)
     catch(error)
     {
         console.error("Error sending data:",error.message);
-        throw new Error("Failed to send data to server");
+        throw new Error(error.message);
     }
 }
