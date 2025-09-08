@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #3B82F6; /* Blue 500 */
+    --primary-hover: #2563EB; /* Blue 600 */
+    --secondary-color: #E5E7EB; /* Gray 200 */
+    --secondary-hover: #D1D5DB; /* Gray 300 */
+    --text-primary: #1F2937; /* Gray 800 */
+    --text-secondary: #6B7280; /* Gray 500 */
+    --border-color: #D1D5DB; /* Gray 300 */
+    --error-color: #EF4444; /* Red 500 */
+    --success-color: #3B82F6; /* Same as primary for valid state */
+    --bg-light: #F9FAFB; /* Gray 50 */
+    --white: #FFFFFF;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+/* --- Main Form Container --- */
+.signup-container {
+    width: 100%;
+    max-width: 480px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    /* overflow: hidden; Removed to prevent dropdown clipping */
+    transition: all 0.3s ease-in-out;
+}
+
+.signup-form {
+    padding: 2rem 2.5rem;
+}
+
+/* --- Header --- */
+.form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+}
+
+.form-header p {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* --- Multi-Step Wrapper & Slider --- */
+.form-steps-wrapper {
+    overflow: hidden;
+    position: relative;
+    /* min-height: 280px; Removed to allow dynamic height */
+}
+
+.form-steps-slider {
+    display: flex;
+    width: 200%; /* Two steps */
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.form-steps-slider.step-1 {
+    transform: translateX(0%);
+}
+
+.form-steps-slider.step-2 {
+    transform: translateX(-50%);
+}
+
+.form-step {
+    width: 50%;
+    flex-shrink: 0;
+    padding: 0 0.25rem;
+}
+
+/* --- Form Groups and Inputs --- */
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.form-group input, .combo-box input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--text-primary);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: var(--white);
+}
+
+.form-group input:focus, .combo-box input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.form-group input.invalid, .combo-box input.invalid { border-color: var(--error-color); }
+.form-group input.invalid:focus, .combo-box input.invalid:focus { box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3); }
+.form-group input.valid, .combo-box input.valid { border-color: var(--success-color); }
+.form-group input.valid:focus, .combo-box input.valid:focus { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); }
+
+.error-message {
+    color: var(--error-color);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+.selection-prompt {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 2rem 0;
+}
+
+/* --- ComboBox Specific Styles --- */
+.combo-box { position: relative; }
+.options-list {
+    position: relative;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-top: 0.25rem;
+    padding: 0.5rem 0;
+    list-style: none;
+    max-height: 180px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+}
+.options-list li {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.options-list li:hover { background-color: var(--bg-light); }
+.options-list li.no-options { cursor: default; color: var(--text-secondary); }
+
+/* --- Navigation Buttons --- */
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+.form-navigation button {
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+.btn-primary { background-color: var(--primary-color); color: var(--white); }
+.btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+.btn-secondary { background-color: var(--secondary-color); color: var(--text-primary); }
+.btn-secondary:hover { background-color: var(--secondary-hover); }
+.form-navigation:has(.btn-primary:only-child) { justify-content: flex-end; }
