@@ -34,7 +34,26 @@ router.post("/",async (req,res)=>{
         console.error("Error:",error.message);
         res.status(500).json({ error: 'Internal Server Error' });
     }
+});
+
+router.get("/notice",async (req,res)=>
+{
+
+    try
+    {
+        const query = 'SELECT * FROM AlumniNotes';
+        const [rows] = await db.execute(query);
+        res.status(200).json(rows);
+    }
+    catch(error)
+    {
+        console.error("Error:",error.message);
+        res.status(500).json({ error: `${err.message}` });
+    }
+
 })
+
+
 
 
 module.exports=router;

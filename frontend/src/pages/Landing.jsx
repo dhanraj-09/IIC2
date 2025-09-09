@@ -1,11 +1,12 @@
 import React from 'react';
 import '../css/landing.css';
+import {Link} from "react-router-dom";
 
 const Landing= () => {
     return (
         <div className="min-h-screen antialiased bg-gray-50">
 
-            {/* Navbar */}
+
             <nav className="bg-white shadow-lg">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16 items-center">
@@ -13,9 +14,9 @@ const Landing= () => {
                             <span className="text-2xl font-bold text-primary">ALUMNICONNECT</span>
                         </div>
                         <div className="flex items-center space-x-4">
-                            <a href="#" className="text-gray-600 hover:text-primary font-medium">Log In</a>
-                            <a href="#"
-                               className="px-6 py-2 rounded-full text-white bg-primary hover:bg-blue-600 font-medium transition-colors">SignUp</a>
+                            <Link to="/logup" className="text-gray-600 hover:text-primary font-medium">Log In</Link>
+                            <Link to="/logup"
+                                  className="px-6 py-2 rounded-full text-white bg-primary hover:bg-blue-600 font-medium transition-colors">SignUp</Link>
                         </div>
                     </div>
                 </div>

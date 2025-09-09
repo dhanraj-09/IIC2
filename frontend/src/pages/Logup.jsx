@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {sendData} from "../api/api.js";
 import "../css/logup.css"
+import {useNavigate} from "react-router-dom";
 
 
 
@@ -92,6 +93,7 @@ const Logup = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState(initialFormState);
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
     const validateField = (name, value) => {
         let error = '';
@@ -158,9 +160,11 @@ const Logup = () => {
             try {
                 await sendData(formData);
                 alert(`Registration successful for ${formData.name}!`);
+                navigate('/home');
                 setFormData(initialFormState); // Reset form to initial state
                 setErrors({});
                 setCurrentStep(1);
+
             } catch (error) {
                 console.error("Submission failed:", error);
                 alert(`Registration failed. ${error.message}`);

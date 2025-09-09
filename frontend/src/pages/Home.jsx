@@ -1,206 +1,169 @@
 import React, { useState, useEffect } from 'react';
-import '../css/HomePage.css';
+import { Bookmark, MessageSquare } from 'lucide-react';
+import "../css/homepage.css"
+
+// --- Boilerplate JSON Data (Simulating API Response from AlumniNotes table) ---
+const apiData = {
+    currentUser: {
+        name: 'John Doe',
+        regNo: '20BCE1234',
+        author: 'Tech University',
+    },
 
 
-const userData = {
-    name: "Aditya Singh",
-    role: "Student",
-    department: "Computer Science",
-    profileImage: "https://via.placeholder.com/150/0000FF/FFFFFF?text=AS",
-    canPost: false
+
+
+    // saved post and messages are hard coded for now
+    savedPosts: [
+        { id: 1, description: 'We\'re hiring for a Junior Product Manager...' },
+        { id: 2, description: 'Internship opportunities for Data Analysts...' },
+        { id: 3, description: 'Webinar on Cloud Computing trends...' },
+    ],
+    messages: [
+        { id: 1, senderName: 'Priya Sharma', avatarUrl: 'https://placehold.co/40x40/3B82F6/FFFFFF?text=PS' },
+        { id: 2, senderName: 'Dr. Vikas Yadav', avatarUrl: 'https://placehold.co/40x40/EF4444/FFFFFF?text=VY' },
+        { id: 3, senderName: 'Rohan Mehta', avatarUrl: 'https://placehold.co/40x40/10B981/FFFFFF?text=RM' },
+        { id: 4, senderName: 'Dr. Shikha Verma', avatarUrl: 'https://placehold.co/40x40/8B5CF6/FFFFFF?text=SV' },
+        { id: 5, senderName: 'Ananya Gupta', avatarUrl: 'https://placehold.co/40x40/8B5CF6/FFFFFF?text=AG' },
+    ],
 };
 
-const fetchPosts = () => {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve([
-                {
-                    id: 1,
-                    author: {
-                        name: "Priya Sharma",
-                        role: "Alumni, Innovate Solutions",
-                        image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTgzODl8MHwxfHNlYXJjaHw3OXx8cG9ydHJhaXQlMjBmZW1hbGV8ZW58MHx8fHwxNzAzMjAwMzk0fDA&ixlib=rb-4.0.3&q=80&w=1080",
-                        profileUrl: "#"
-                    },
-                    content: "We're hiring for a Junior Product Manager! If you're a recent graduate with a passion for tech and user-centric design, please connect with me. #hiring #alumninetwork #productmanagement",
-                    date: "2 hours ago",
-                    image: null
-                },
-                {
-                    id: 2,
-                    author: {
-                        name: "Dr. Ankit Singh",
-                        role: "Faculty, Dept. of CSE",
-                        image: "https://images.unsplash.com/photo-1519062332616-092955490483?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTgzODl8MHwxfHNlYXJjaHw3OXx8cG9ydHJhaXQlMjBtYWxlfGVufDB8fHx8MTcwMDgxNTA5M3ww&ixlib=rb-4.0.3&q=80&w=1080",
-                        profileUrl: "#"
-                    },
-                    content: "Reminder to all final-year students: the deadline for project proposals is this Friday. Please submit your work on the portal. Feel free to reach out with any questions.",
-                    date: "Yesterday",
-                    image: null
-                }
-            ]);
-        }, 1000);
-    });
-};
+// --- Child Components ---
 
-const trendingTopics = [
-    { id: 1, text: "#TechInternships2025", count: 120 },
-    { id: 2, text: "#AIinEducation", count: 85 },
-    { id: 3, text: "#StartUpStories", count: 62 },
-    { id: 4, text: "#NewCoursesCS", count: 45 },
-];
-
-const Navbar = () => (
-    <nav className="navbar">
-        <div className="navbar-links-container">
-            <a href="#home" className="nav-link">Home</a>
-            <a href="#student" className="nav-link">Student</a>
-            <a href="#alumni" className="nav-link">Alumni</a>
-            <a href="#faculty" className="nav-link">Faculty</a>
-        </div>
-    </nav>
+const Header = () => (
+    <header className="home-header">
+        <nav className="nav-container">
+            <ul className="nav-list">
+                {['Home', 'Alumni', 'Student', 'Faculty'].map((item, index) => (
+                    <li key={item} className="nav-item">
+                        <a href="#" className={index === 0 ? 'active' : ''}>
+                            {item}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    </header>
 );
 
-const UserProfileSummary = ({ user }) => (
-    <div className="profile-summary-card">
-        <div className="summary-header">
-            <img src={user.profileImage} alt={user.name} className="summary-profile-img" />
-            <h4 className="summary-name">{user.name}</h4>
-            <p className="summary-role">{user.role}</p>
-        </div>
-        <div className="summary-body">
-            <p className="summary-department">{user.department}</p>
-            <a href="#" className="summary-view-profile">View Profile</a>
-        </div>
+const UserProfileCard = ({ user }) => (
+    <div className="card user-profile-card">
+
+        <h2 className="user-name">{user.name}</h2>
+        <p className="user-detail">{user.regNo}</p>
+        <p className="user-detail user-university">{user.universityName}</p>
+        <button className="profile-button">
+            View Profile
+        </button>
     </div>
 );
 
-const Post = ({ post, onSave, isSaved }) => (
-    <div className="post-card">
-        <div className="post-header">
-            <img src={post.author.image} alt={post.author.name} className="post-author-img" />
-            <div className="post-author-info">
-                <a href={post.author.profileUrl} className="post-author-name">{post.author.name}</a>
-                <p className="post-author-role">{post.author.role}</p>
-            </div>
-            <span className="post-date">{post.date}</span>
-        </div>
-        <div className="post-content">
-            <p>{post.content}</p>
-            {post.image && <img src={post.image} alt="Post media" className="post-media" />}
-        </div>
-        <div className="post-actions">
-            <button
-                className={`post-action-button ${isSaved ? 'saved' : ''}`}
-                onClick={() => onSave(post)}
-            >
-                {isSaved ? 'Saved' : 'Save'}
-            </button>
-        </div>
+// Updated to use 'description'
+const SavedPostsCard = ({ savedPosts }) => (
+    <div className="card sidebar-card saved-posts-card">
+        <h3 className="card-title">
+            <Bookmark size={20} /> Saved
+        </h3>
+        <ul>
+            {savedPosts.map(post => (
+                <li key={post.id}>
+                    <a href="#">
+                        {post.description}
+                    </a>
+                </li>
+            ))}
+        </ul>
     </div>
 );
 
-const PostModal = ({ isOpen, onClose }) => {
-    if (!isOpen) return null;
-
+// Updated to work with the new AlumniNotes data structure
+const PostCard = ({ post }) => {
     return (
-        <div className="modal-overlay" onClick={onClose}>
-            <div className="modal-content" onClick={e => e.stopPropagation()}>
-                <button className="modal-close-button" onClick={onClose}>&times;</button>
-                <h3 className="modal-title">Create a Post</h3>
-                <div className="modal-form">
-                    <textarea placeholder="What's on your mind?" rows="5"></textarea>
-                    <input type="text" placeholder="Add an image or video URL (optional)" />
-                    <button className="modal-post-button">Post</button>
+        <div className="card post-card">
+            <div className="post-author-header">
+                <div>
+                    <h4 className="author-name">{post.author_name}</h4>
+                    <p className="author-details">{post.author_role}</p>
                 </div>
+            </div>
+            {/* Title is removed, description is the main content */}
+            <div className="post-content">
+                <p>{post.description}</p>
+            </div>
+            <div className="post-save-action">
+                <a href="#">Save</a>
             </div>
         </div>
     );
 };
 
+const MessagesCard = ({ messages }) => (
+    <div className="card sidebar-card messages-card">
+        <h3 className="card-title">
+            <MessageSquare size={20} /> Messages
+        </h3>
+        <ul>
+            {messages.map(message => (
+                <li key={message.id} className="message-item">
+
+                    <span>{message.senderName}</span>
+                </li>
+            ))}
+        </ul>
+    </div>
+);
+
+// --- Main Home Component ---
+
 const Home = () => {
-    const [posts, setPosts] = useState([]);
+    const [pageData, setPageData] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [savedPosts, setSavedPosts] = useState([]);
 
     useEffect(() => {
-        fetchPosts().then(data => {
-            setPosts(data);
-            setLoading(false);
-        });
+        const fetchData = () => {
+            setTimeout(() => {
+                setPageData(apiData);
+                setLoading(false);
+            }, 500);
+        };
+        fetchData();
     }, []);
 
-    const handleSavePost = (post) => {
-        setSavedPosts(prevSaved => {
-            if (prevSaved.find(p => p.id === post.id)) {
-                return prevSaved.filter(p => p.id !== post.id);
-            } else {
-                return [...prevSaved, post];
-            }
-        });
-    };
+
+    if (loading) {
+        return (
+            <div className="loader-container">
+                <div className="loader-text">Loading your feed...</div>
+            </div>
+        );
+    }
+
+    if (!pageData) return <div>Error loading data.</div>;
+
+    const { currentUser, feedPosts, savedPosts, messages } = pageData;
 
     return (
-        <div className="home-page-wrapper">
-            <Navbar />
-            <div className="home-content-layout">
-                <div className="home-sidebar left-sidebar">
-                    <UserProfileSummary user={userData} />
-                </div>
-                <div className="noticeboard-feed">
-                    <div className="feed-header">
-                        <h2 className="feed-title">Noticeboard</h2>
-                        {userData.canPost && (
-                            <div className="create-post-prompt" onClick={() => setIsModalOpen(true)}>
-                                <img src={userData.profileImage} alt={userData.name} className="prompt-author-img" />
-                                <span className="prompt-text">Write a post...</span>
-                            </div>
-                        )}
-                    </div>
-                    {loading ? (
-                        <div className="loading-posts">Loading posts...</div>
-                    ) : (
-                        posts.map(post => (
-                            <Post
-                                key={post.id}
-                                post={post}
-                                onSave={handleSavePost}
-                                isSaved={savedPosts.some(p => p.id === post.id)}
-                            />
-                        ))
-                    )}
-                </div>
-                <div className="home-sidebar right-sidebar">
-                    <div className="right-sidebar-card">
-                        <h4 className="sidebar-title">Trending</h4>
-                        <div className="trending-list">
-                            {trendingTopics.map(topic => (
-                                <div key={topic.id} className="trending-item">
-                                    <p className="trending-topic">{topic.text}</p>
-                                    <span className="trending-count">{topic.count} posts</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="right-sidebar-card saved-posts-card">
-                        <h4 className="sidebar-title">Saved Posts</h4>
-                        {savedPosts.length > 0 ? (
-                            savedPosts.map(post => (
-                                <div key={post.id} className="saved-post-item">
-                                    <h5 className="saved-post-author">{post.author.name}</h5>
-                                    <p className="saved-post-content">{post.content.substring(0, 50)}...</p>
-                                </div>
-                            ))
-                        ) : (
-                            <p className="no-posts-message">No posts saved yet.</p>
-                        )}
-                    </div>
-                </div>
+        <div className="home-container">
+            <div className="home-layout">
+                <Header />
+                <main className="main-grid">
+                    <aside className="left-sidebar">
+                        <UserProfileCard user={currentUser} />
+                        <SavedPostsCard savedPosts={savedPosts} />
+                    </aside>
+
+                    <section className="main-feed">
+                        {feedPosts.map(post => <PostCard key={post.id} post={post} />)}
+                    </section>
+
+                    <aside className="right-sidebar">
+                        <MessagesCard messages={messages} />
+                    </aside>
+                </main>
             </div>
-            <PostModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>
     );
 };
 
 export default Home;
+
